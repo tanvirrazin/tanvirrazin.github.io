@@ -1,0 +1,39 @@
+<html>
+    <head>
+    </head>
+    <body data-ng-app="TodoApp">
+        <div data-ng-controller="todoCtrl">
+        <h2>Great Todo</h2>
+        <form data-ng-submit="saveTodo();"><input id="todo-input" type="text" data-ng-model="todoName" placeholder="Type and enter ..."/></form>
+
+        <table id="todo-show">
+            <tr data-ng-repeat="todo in todoList">
+                <td>{{ $index+1 }}) </td>
+                <td>{{ todo.name }}</td>
+                <td style="color: red;"><a href="#" data-ng-click="removeTodo($index);">remove</a></td>
+            </tr>
+        </table>
+        </div>
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
+
+        <script type="text/javascript">
+            angular.module('TodoApp', [])
+                   .controller('todoCtrl', ['$scope', function($scope){
+                        $scope.todoList = [];
+
+                        $scope.saveTodo = function() {
+                            $scope.todoList.push({
+                                'name': $scope.todoName
+                            });
+                            $scope.todoName = '';
+                        };
+
+                        $scope.removeTodo = function(index) {
+                            $scope.todoList.splice(index, 1);
+                        };
+                   }]);
+        </script>
+    </body>
+</html>
+
